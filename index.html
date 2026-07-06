@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>議会びより ｜ 町の議会を、もっと身近に。</title>
+<meta name="description" content="全国の市町村議会を、町民の目線でやさしくまとめる非公式ポータル「議会びより」。議員の顔ぶれ、一般質問、議会のしくみをわかりやすく。">
+<style>
+  :root{
+    --paper:#f7f3ea;--paper-2:#fffdf8;--ink:#1f2a44;--ink-soft:#42506e;--muted:#7b7566;
+    --line:#e4dccb;--cosmos:#d5477e;--cosmos-soft:#f6dfe9;--leaf:#3f7d5b;--gold:#c98a2b;--navy:#22315a;
+    --shadow:0 1px 2px rgba(31,42,68,.05),0 8px 28px rgba(31,42,68,.08);
+    --shadow-lg:0 12px 40px rgba(31,42,68,.14);
+    --serif:"Hiragino Maru Gothic ProN","Hiragino Maru Gothic Pro","BIZ UDPGothic","Kosugi Maru","Rounded Mplus 1c","YuGothic","Yu Gothic",sans-serif;
+    --sans:"BIZ UDPGothic","Hiragino Maru Gothic ProN","Hiragino Kaku Gothic ProN","Yu Gothic UI","YuGothic","Yu Gothic","Meiryo",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background-color:var(--paper);line-height:1.75;
+    background-image:
+      radial-gradient(circle at 12% -5%,rgba(213,71,126,.08),transparent 42%),
+      radial-gradient(circle at 90% 6%,rgba(63,125,91,.08),transparent 40%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
+    -webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(247,243,234,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:10px;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:1.15rem;color:var(--cosmos);text-decoration:none}
+  .brand .mark{width:28px;height:28px}
+  .badge{margin-left:auto;font-size:.62rem;font-weight:700;letter-spacing:.08em;color:var(--cosmos);
+    border:1px solid var(--cosmos);border-radius:999px;padding:2px 8px;background:#fff}
+
+  header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  header.hero .wrap{padding:66px 20px 54px;position:relative;z-index:2}
+  .eyebrow{font-family:var(--serif);color:var(--cosmos);font-weight:700;letter-spacing:.14em;font-size:.9rem;margin-bottom:14px}
+  header.hero h1{font-family:var(--serif);font-weight:700;line-height:1.2;font-size:clamp(2.1rem,6.5vw,3.6rem);color:var(--navy)}
+  header.hero h1 .accent{background:linear-gradient(transparent 62%,var(--cosmos-soft) 62%);padding:0 .1em}
+  header.hero p.lead{margin-top:20px;max-width:36em;font-size:1.08rem;color:var(--ink-soft)}
+  .hero-cosmos{position:absolute;right:-30px;top:-20px;width:300px;opacity:.5;z-index:1;pointer-events:none}
+
+  main{padding:52px 0 40px}
+  .sec-head{margin-bottom:26px}
+  .sec-head .kicker{font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--leaf);text-transform:uppercase}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.1rem);color:var(--navy);margin-top:6px}
+  .sec-head p{color:var(--ink-soft);margin-top:8px;max-width:44em;font-size:.96rem}
+
+  .towns{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .town{display:block;text-decoration:none;background:var(--paper-2);border:1px solid var(--line);border-radius:16px;
+    padding:22px 22px 20px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden}
+  .town.live:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .town::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(var(--cosmos),var(--gold))}
+  .town.soon{opacity:.72}
+  .town.soon::before{background:linear-gradient(var(--line),var(--muted))}
+  .town .pref{font-size:.74rem;color:var(--muted);font-weight:700;letter-spacing:.04em}
+  .town .nm{font-family:var(--serif);font-size:1.5rem;color:var(--navy);font-weight:700;margin:4px 0 2px}
+  .town .series{font-size:.8rem;color:var(--cosmos);font-weight:700}
+  .town .st{margin-top:14px;font-size:.8rem;font-weight:700}
+  .town.live .st{color:var(--leaf)}
+  .town.soon .st{color:var(--muted)}
+  .town .arrow{float:right;color:var(--cosmos);font-weight:700}
+
+  .what{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:14px}
+  .what .c{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .what .c .ic{font-size:1.6rem}
+  .what .c h3{font-family:var(--serif);color:var(--navy);font-size:1.1rem;margin:10px 0 6px}
+  .what .c p{font-size:.9rem;color:var(--ink-soft);line-height:1.8}
+
+  .notice{background:var(--cosmos-soft);border:1px solid #eec6d6;border-radius:14px;padding:18px 22px;margin-top:40px;
+    font-size:.88rem;color:#7a2f4f;line-height:1.8}
+  .notice b{color:#5f2340}
+  footer{border-top:1px solid var(--line);padding:30px 0 46px;color:var(--muted);font-size:.82rem;text-align:center;margin-top:40px}
+  footer b{color:var(--cosmos)}
+  @media(max-width:640px){header.hero .wrap{padding:46px 20px 38px}.hero-cosmos{width:200px;opacity:.35}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="cosmos">
+    <g>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(315)"/>
+    </g>
+    <circle r="6" fill="#e0a52b"/>
+  </g>
+</defs></svg>
+
+<div class="topbar"><div class="wrap">
+  <a class="brand" href="#"><svg class="mark" viewBox="-24 -24 48 48"><use href="#cosmos"/></svg>議会びより</a>
+  <span class="badge">非公式</span>
+</div></div>
+
+<header class="hero">
+  <svg class="hero-cosmos" viewBox="-60 -60 120 120" aria-hidden="true">
+    <use href="#cosmos" transform="translate(-20,-10) scale(1.2)"/>
+    <use href="#cosmos" transform="translate(28,18) scale(.8) rotate(20)"/>
+    <use href="#cosmos" transform="translate(20,-28) scale(.6) rotate(40)"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow">議会びより ・ GIKAI BIYORI</div>
+    <h1>町の議会を、<br><span class="accent">もっと身近に。</span></h1>
+    <p class="lead">全国の市町村議会を、町民の目線でやさしくまとめる非公式ポータルです。だれが、どんな一般質問をしているのか。まちの意思決定を、もっと分かりやすく。</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="sec-head">
+      <div class="kicker">Editions ・ 公開中のまち</div>
+      <h2>まちを選ぶ</h2>
+      <p>ご覧になりたい自治体を選んでください。順次、地域を増やしていきます。</p>
+    </div>
+    <div class="towns">
+      <a class="town live" href="./chikuzen/">
+        <span class="arrow">→</span>
+        <div class="pref">福岡県 朝倉郡</div>
+        <div class="nm">筑前町</div>
+        <div class="series">筑前町 議会びより</div>
+        <div class="st">● 公開中</div>
+      </a>
+      <div class="town soon">
+        <div class="pref">福岡県</div>
+        <div class="nm">朝倉市</div>
+        <div class="series">朝倉市 議会びより</div>
+        <div class="st">準備中</div>
+      </div>
+      <div class="town soon">
+        <div class="pref">福岡県 朝倉郡</div>
+        <div class="nm">東峰村</div>
+        <div class="series">東峰村 議会びより</div>
+        <div class="st">準備中</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:52px">
+    <div class="sec-head">
+      <div class="kicker">About ・ 議会びよりとは</div>
+      <h2>できること</h2>
+    </div>
+    <div class="what">
+      <div class="c"><div class="ic">🧑‍🤝‍🧑</div><h3>議員の顔ぶれ</h3><p>だれが議員で、どの会派・委員会に所属しているのかが一目でわかります。</p></div>
+      <div class="c"><div class="ic">🗣️</div><h3>一般質問</h3><p>各議員が何を質問し、町がどう答えたのか。要旨をやさしくまとめています。</p></div>
+      <div class="c"><div class="ic">📖</div><h3>議会のしくみ</h3><p>定例会・委員会・議決とは何かを、はじめての人向けに解説します。</p></div>
+      <div class="c"><div class="ic">🔗</div><h3>公式へつなぐ</h3><p>会議録・録画配信・議会だよりなど、一次情報へすぐアクセスできます。</p></div>
+    </div>
+  </section>
+
+  <div class="notice">
+    <b>ご注意</b> — 「議会びより」は、各自治体や議会が運営する公式サイトではありません。有志が公開情報をわかりやすくまとめた<b>非公式</b>のポータルです。正確な最新情報は、各自治体の公式ページ・会議録でご確認ください。
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <b>議会びより</b>（非公式）<br>
+  <span style="font-size:.75rem">町の議会をやさしくまとめる、非営利プロジェクトです。</span>
+</div></footer>
+</body>
+</html>
