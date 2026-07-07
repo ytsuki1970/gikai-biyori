@@ -200,6 +200,48 @@
     margin-top:26px;font-size:.88rem;color:#7a2f4f;line-height:1.8}
   .notice b{color:#5f2340}
 
+  /* ---------- Budget & Bills ---------- */
+  .b-total{padding:26px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+  .b-total .yr{font-size:.85rem;font-weight:800;color:var(--cosmos)}
+  .b-total .yen{font-family:var(--serif);font-size:clamp(1.9rem,5.5vw,2.7rem);color:var(--navy);font-weight:700}
+  .b-total p{flex-basis:100%;font-size:.88rem;color:var(--ink-soft);margin-top:4px}
+  .b-cat{padding:20px 22px;margin-top:14px}
+  .b-cat h4{font-family:var(--serif);color:var(--navy);font-size:1.05rem;margin-bottom:10px}
+  .bar-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-size:.84rem}
+  .bar-row .lbl{flex:0 0 44%;color:var(--ink-soft);line-height:1.45}
+  .bar-row .track{flex:1;height:12px;background:#eef1f7;border-radius:6px;overflow:hidden}
+  .bar-row .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cosmos),var(--gold))}
+  .bar-row .amt{flex:0 0 auto;font-family:var(--serif);font-weight:700;color:var(--navy);white-space:nowrap}
+  .qa-item{padding:16px 20px;margin-top:12px}
+  .qa-item .q{font-weight:700;color:var(--navy);font-size:.94rem}
+  .qa-item .q::before{content:"問";color:#fff;background:var(--cosmos);border-radius:6px;font-size:.72rem;padding:2px 7px;margin-right:8px}
+  .qa-item .a{margin-top:8px;font-size:.9rem;color:var(--ink-soft);line-height:1.8}
+  .qa-item .a::before{content:"答";color:#fff;background:var(--leaf);border-radius:6px;font-size:.72rem;padding:2px 7px;margin-right:8px}
+  .qa-item .dept{display:block;text-align:right;font-size:.75rem;color:var(--muted);margin-top:6px}
+  .bill-session{margin-top:28px}
+  .bill-session h3{font-family:var(--serif);font-size:1.2rem;color:var(--navy);padding-bottom:8px;border-bottom:2px solid var(--navy)}
+  .bill-session .note{font-size:.85rem;color:var(--ink-soft);margin:8px 0 4px}
+  .bill-group{padding:16px 20px;margin-top:12px}
+  .bill-group .bg-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .bill-group .cat{font-size:.78rem;font-weight:800;color:var(--navy);background:#eef1f7;border-radius:6px;padding:3px 10px}
+  .bill-group .res{font-size:.78rem;font-weight:800;color:var(--leaf)}
+  .bill-group ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+  .bill-group li{font-size:.86rem;color:var(--ink-soft);padding-left:14px;position:relative;line-height:1.6}
+  .bill-group li::before{content:"・";position:absolute;left:0;color:var(--cosmos)}
+
+  /* ---------- Voices ---------- */
+  .voices-card{padding:22px 24px;margin-top:26px}
+  .voices-card h4{font-family:var(--serif);font-size:1.05rem;color:var(--navy)}
+  .voices-card .vd{font-size:.8rem;color:var(--muted);margin:4px 0 14px}
+  .voices-card ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px 14px}
+  .voices-card li{font-size:.87rem;color:var(--ink-soft);background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 13px;line-height:1.6}
+  .voices-card .vn{font-size:.78rem;color:var(--muted);margin-top:12px}
+
+  /* ---------- Tags & pending ---------- */
+  .tag-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .tag-badge{font-size:.68rem;font-weight:700;color:var(--leaf);border:1px solid #cfe2d6;background:#f3f8f5;border-radius:999px;padding:2px 9px}
+  .pending-badge{display:inline-block;font-size:.74rem;font-weight:700;color:var(--gold);background:#faf3e3;border:1px solid #ecd9ad;border-radius:8px;padding:4px 10px;margin-bottom:10px}
+
   /* ---------- Footer ---------- */
   footer{border-top:1px solid var(--line);padding:30px 0 46px;color:var(--muted);font-size:.82rem;text-align:center}
   footer .up{color:var(--ink-soft)}
@@ -261,6 +303,7 @@
       <button data-tab="home" class="active">ホーム</button>
       <button data-tab="members">議員</button>
       <button data-tab="questions">一般質問</button>
+      <button data-tab="budget">予算・議決</button>
       <button data-tab="learn">議会のしくみ</button>
       <button data-tab="links">リンク・出典</button>
     </nav>
@@ -279,7 +322,7 @@
     <p class="lead">筑前町議会でいま何が話し合われているのか。だれが、どんな一般質問をしているのか。町民の目線でやさしくまとめた、非公式のポータルサイトです。</p>
     <div class="hero-stats">
       <div class="st"><b>14</b><span>議員定数</span></div>
-      <div class="st"><b>6</b><span>3月定例会の質問者</span></div>
+      <div class="st"><b>7</b><span>6月定例会の質問者</span></div>
       <div class="st"><b>3</b><span>会派</span></div>
     </div>
   </div>
@@ -308,10 +351,12 @@
     </div>
 
     <div class="home-q">
-      <h4>3月定例会の一般質問ハイライト</h4>
+      <h4>直近の一般質問ハイライト（6月定例会）</h4>
       <div class="grid" id="home-highlights" style="margin-top:14px"></div>
       <button class="jump-btn" onclick="go('questions')">すべての一般質問を見る →</button>
     </div>
+
+    <div class="card voices-card" id="home-voices"></div>
   </section>
 
   <!-- ================= MEMBERS ================= -->
@@ -342,7 +387,31 @@
       <input type="search" id="q-search" placeholder="キーワードで検索（例：給食・図書館・防災）">
       <button class="chip active" data-qfilter="all">すべての議員</button>
     </div>
+    <div class="filters" id="tag-chips">
+      <span style="font-size:.78rem;font-weight:800;color:var(--muted)">テーマ：</span>
+      <button class="chip active" data-qtag="all">すべて</button>
+    </div>
     <div id="questions-list"></div>
+  </section>
+
+  <!-- ================= BUDGET & BILLS ================= -->
+  <section class="panel" id="budget">
+    <div class="sec-head">
+      <div class="kicker">Budget ・ 予算</div>
+      <h2>町の予算を、やさしく</h2>
+      <p>令和8年度に筑前町が「何にいくら使うか」。3月定例会で可決された新年度予算の主なものを、議会だより第80号からまとめました。</p>
+    </div>
+    <div class="card b-total" id="b-total"></div>
+    <div id="b-cats"></div>
+    <h3 style="font-family:var(--serif);color:var(--navy);font-size:1.2rem;margin:34px 0 4px">予算審査でのやりとり（抜粋）</h3>
+    <p style="font-size:.88rem;color:var(--ink-soft)">予算審査特別委員会（寺原裕明委員長）での質疑応答の一部です。</p>
+    <div id="b-qa"></div>
+    <div class="sec-head" style="margin-top:48px">
+      <div class="kicker">Results ・ 議決結果</div>
+      <h2>何が決まった？</h2>
+      <p>直近の定例会・臨時会に提案された主な議案と結果です。議員ごとの賛否は議会だより第80号（P6〜7）に掲載されています。</p>
+    </div>
+    <div id="bills"></div>
   </section>
 
   <!-- ================= LEARN ================= -->
@@ -396,7 +465,7 @@
 <footer>
   <div class="wrap">
     <div class="up"><b style="color:var(--cosmos)">議会びより</b> ／ 筑前町版（非公式）</div>
-    <p style="margin-top:6px">出典：<a href="https://www.town.chikuzen.fukuoka.jp/li/100/index.html" target="_blank" rel="noopener">筑前町議会 公式ページ</a> ／ 議会だより 第80号ほか</p>
+    <p style="margin-top:6px">出典：<a href="https://www.town.chikuzen.fukuoka.jp/li/100/index.html" target="_blank" rel="noopener">筑前町議会 公式ページ</a> ／ 議会だより 第80号・一般質問通告書ほか</p>
     <p style="margin-top:6px;font-size:.75rem">町の議会をやさしくまとめる、町民のための非営利プロジェクトです。</p>
   </div>
 </footer>
@@ -421,7 +490,7 @@ const DATA = {
     tagline:"町の議会が、よくわかる。"
   },
   meta:{
-    updated:"2026-07-04",
+    updated:"2026-07-07",
     term:"令和5年2月1日 〜 令和9年1月31日",
     teisu:14,
     video:"https://smart.discussvision.net/smart/tenant/chikuzen/WebView/rd/council.html"
@@ -448,35 +517,58 @@ const DATA = {
     {seat:12,name:"河内 直子",kana:"かわち なおこ",role:"",kaiha:"日本共産党",wins:7,committees:["文教厚生常任委員会 委員長","議会運営委員会"]}
   ],
   sessions:[
-    {id:"r8t1",name:"令和8年 第1回定例会（3月定例会）",term:"3月2日〜13日（12日間）",latest:true,note:"諮問1件・同意4件・報告2件・議案31件を審議し、原案のとおり可決。一般質問は6名。本会議ライブ配信のアクセスは163件。"},
+    {id:"r8t2",name:"令和8年 第2回定例会（6月定例会）",term:"6月5日〜12日（8日間）",latest:true,pending:true,note:"6月5日開会・12日閉会。一般質問は6月9日・10日に7名の議員が登壇（通告書より）。質問と答弁の詳しい要旨は、議会だより第81号（8月ごろ発行見込み）の掲載後に追記します。"},
+    {id:"r8t1",name:"令和8年 第1回定例会（3月定例会）",term:"3月2日〜13日（12日間）",note:"諮問1件・同意4件・報告2件・議案31件を審議し、原案のとおり可決。一般質問は6名。本会議ライブ配信のアクセスは163件。"},
     {id:"r8r1",name:"令和8年 第1回臨時会",term:"1月30日（1日間）",note:"承認1件・議案1件を審議し、承認・可決。"},
     {id:"r7r5",name:"令和7年 第5回臨時会",term:"12月24日（1日間）",note:"議案12件を審議し、承認・可決。"}
   ],
   schedule:[
-    {d:"6/5〜6/12",t:"令和8年 6月定例会"},
-    {d:"6/9・6/10",t:"6月定例会 一般質問"},
-    {d:"5/29頃",t:"6月定例会 一般質問通告書を公開"}
+    {d:"8月ごろ",t:"議会だより 第81号 発行見込み（6月定例会の詳報）"},
+    {d:"9月",t:"9月定例会（日程は公式サイトで発表され次第更新）"},
+    {d:"随時",t:"本会議の録画配信は公開中（リンク・出典から）"}
   ],
   /* 令和8年3月定例会の一般質問（6名） */
   questions:[
-    {session:"r8t1",name:"柳 雅明",kana:"やなぎ まさあき",seat:8,
+    {session:"r8t1",name:"柳 雅明",kana:"やなぎ まさあき",seat:8,tags:["子育て・教育"],
      themes:["不登校問題とは"],
      summary:"不登校の子どもが全国で30万人以上と言われる中、学校はどう対応するのかを質問。教育課長は「学習機会と学力の保障、社会的な発達、安心安全な居場所、心身の健康の保障が学校の本質的な役割。すべての子どもが安心して楽しく通える魅力ある場を目指す」と答弁。教育長は「知識習得や入試のためだけなら動画で足りるが、学校は友達との学び合いや行事を通じて協力や他者理解を育む大切な学びの場。『チーム筑前』で前へ進む」と述べた。"},
-    {session:"r8t1",name:"木村 和彦",kana:"きむら かずひこ",seat:6,
+    {session:"r8t1",name:"木村 和彦",kana:"きむら かずひこ",seat:6,tags:["防災・安全","子育て・教育"],
      themes:["安心・安全な町づくり","こどもたちの健全育成"],
      summary:"災害現場にドローンを活用すれば、近づかずに状況確認でき二次災害を防げるのではと質問。建設課長は「空から迅速に状況把握でき、危険な場所での人的リスクを軽減できる」と答弁。防犯カメラは町の公共施設に9課で約100台設置しており、令和8年度予算に地元区の設置補助金を計上。小学校の遊具については、中牟田小学校だけすべり台付き遊具がないため、安全確保を最優先に設置を検討するとした。"},
-    {session:"r8t1",name:"平田 英司",kana:"ひらた えいじ",seat:1,
+    {session:"r8t1",name:"平田 英司",kana:"ひらた えいじ",seat:1,tags:["農業・環境","子育て・教育","健康・福祉"],
      themes:["筑前クロダマル消費拡大","学校給食のオーガニック推進","障がい者に優しい町づくり"],
      summary:"健康効果のある筑前クロダマル（黒大豆）の豆乳購入補助を提案。農林商工課長は「補助金は公益性の高いものに限定すべきで私的財産は対象外」としつつ、地産地消のPRと学校給食での町内産食材購入支援を継続すると答弁。学校給食のオーガニック推進は国の調査研究を参考に今後検討。町長は「スマート農業・機械化・大型化・オーガニック農業を進め、モデル的な筑前町に」と展望を語った。障がい者に優しい町づくりでは、公共施設のバリアフリートイレや駐車場の基準統一を求め、財政課長はバリアフリー法の基準に準拠して対応するとした。"},
-    {session:"r8t1",name:"原田 宏",kana:"はらだ ひろし",seat:5,
+    {session:"r8t1",name:"原田 宏",kana:"はらだ ひろし",seat:5,tags:["行政・財政","防災・安全","子育て・教育"],
      themes:["町内の防衛施設について","新設保育園の避難計画"],
      summary:"「太刀洗通信施設」の存在と交付金について質問。総務課長は「昭和39年に下髙場へ移転した防衛省の通信所で、全国6ヶ所の一つ。町内下髙場ほかに約10万9414㎡を所有」と答弁。基地交付金（国有提供施設等所在市町村交付金）の増額を、議会と協調して要望していくと町長。下髙場に新設予定の保育園は重要土地等調査法の特別注視区域内にあるが、賃貸借契約のため事前届出の対象外。有事の避難計画は県内自治体でも未作成で、今後も子どもの安全確保に取り組むとした。"},
-    {session:"r8t1",name:"池松 和彦",kana:"いけまつ かずひこ",seat:3,
+    {session:"r8t1",name:"池松 和彦",kana:"いけまつ かずひこ",seat:3,tags:["暮らし・地域","防災・安全"],
      themes:["町の図書館について","消防団について"],
      summary:"図書館がさらに魅力的になれば地域活性化や活字離れ解消に繋がるとして、町民ニーズへの対応を質問。生涯学習課長は「令和6年2月のアンケートで満足・やや満足が72.7%。令和8年度に電子図書館を導入し、ボードゲーム等のイベントを充実させ交流の場として研究する」と答弁。消防団は令和7年度、定数290名に対し222名で定員割れ、町内51区のうち8区が団員不在。目に見えない報酬も大切で、各行政区で団員の存在を大切にしてほしいと述べた。"},
-    {session:"r8t1",name:"河内 直子",kana:"かわち なおこ",seat:12,
+    {session:"r8t1",name:"河内 直子",kana:"かわち なおこ",seat:12,tags:["子育て・教育","暮らし・地域"],
      themes:["学校給食の無償化","就学援助の充実","住居表示の整備"],
-     summary:"学校給食の無償化を求め、国の3分の2補助が見込めるため実施可能ではと質問。教育長は「中学校で物価高騰により約6600万円の予算が必要。継続の確証がなく財政を圧迫するため、国の動向を注視し要望していく」と答弁。就学援助は令和8年度からPTA会費を加えて支給する。住居表示の整備は「今の現状でできるところから取り組むべき」と求め、総務課長は引き続き研究し、必要に応じて庁内の組織体制も併せて検討するとした。"}
+     summary:"学校給食の無償化を求め、国の3分の2補助が見込めるため実施可能ではと質問。教育長は「中学校で物価高騰により約6600万円の予算が必要。継続の確証がなく財政を圧迫するため、国の動向を注視し要望していく」と答弁。就学援助は令和8年度からPTA会費を加えて支給する。住居表示の整備は「今の現状でできるところから取り組むべき」と求め、総務課長は引き続き研究し、必要に応じて庁内の組織体制も併せて検討するとした。"},
+    /* 令和8年6月定例会の一般質問（7名・一般質問通告書より。答弁の要旨は議会だより第81号の掲載後に追記） */
+    {session:"r8t2",name:"奥村 忠義",kana:"おくむら ただよし",seat:10,pending:true,tags:["子育て・教育","農業・環境","暮らし・地域"],
+     themes:["タブレット端末の活用について","害獣駆除について","ペットの苦情について"],
+     summary:"通告の要旨 — 小学校のタブレット授業について、紙の教科書からデジタル教育へ移行する将来的な不安、国語力の位置づけ、デジタルのリスクへの対策、過度な依存による批判的思考力・メタ認知能力の低下への見解などを問う（答弁者：教育長）。あわせて、アライグマなど害獣駆除の対策と、犬や猫に関する苦情の件数・対応を町長に問う。"},
+    {session:"r8t2",name:"柳 雅明",kana:"やなぎ まさあき",seat:8,pending:true,tags:["農業・環境","健康・福祉"],
+     themes:["筑前町ワンヘルス推進宣言について"],
+     summary:"通告の要旨 — 筑前町ワンヘルス推進宣言について、町での実践の有無とその結果、将来の課題、今後も継続してほしい取り組みを問う。生物多様性の保全（外来種の駆除・健全な森づくり・水路や河川の整備による農地保全・自然体験型の環境学習）、温暖化対策（電気自動車の導入・省エネ・夜須高原の森づくり・県産木材の利用）、動物との共生社会（犬猫の譲渡推進・ジビエ消費拡大・人と動物の住み分け）を挙げる（答弁者：町長・教育長）。"},
+    {session:"r8t2",name:"石橋 里美",kana:"いしばし さとみ",seat:7,pending:true,tags:["暮らし・地域","子育て・教育"],
+     themes:["郷土の歴史を伝える民話について","不登校児童生徒への支援について"],
+     summary:"通告の要旨 — 旧三輪町・旧夜須町それぞれの民話の数と紙芝居の作品数、紙芝居の作成目的・活用場面・貸し出しの条件、町の文化遺産である民話の今後の伝承を問う。また不登校児童生徒への支援について、教育支援センター「彩」の役割、「不登校の早期発見早期支援」の具体的な取り組み、国立夜須高原青少年自然の家と連携した不登校支援事業の内容を問う（答弁者：教育長）。"},
+    {session:"r8t2",name:"池松 和彦",kana:"いけまつ かずひこ",seat:3,pending:true,tags:["子育て・教育","暮らし・地域"],
+     themes:["子どもの居場所づくりについて","キッチンカーについて"],
+     summary:"通告の要旨 — 子どもの居場所づくりや子ども食堂について、支援事業補助金を受けている団体数、運営補助金の内容、子ども食堂の開催場所への支援の考えを問う。またキッチンカーの有効活用について、現在の利用状況と今後の活用方法を問う（答弁者：町長）。"},
+    {session:"r8t2",name:"寺原 裕明",kana:"てらはら ひろあき",seat:13,pending:true,tags:["子育て・教育","暮らし・地域"],
+     themes:["学校教育の充実について","町公共施設の管理について"],
+     summary:"通告の要旨 — 学年初めにおける町内各学校の運営状況（始業式についての学校・教育委員会の評価、教職員定数配置の状況と課題）、部活動指導員の活動状況と、その配置が教職員の「働き方改革」や学校教育の充実につながっているかを問う（答弁者：教育長）。また町公共施設、特に野球場・パークゴルフ場の雑草対策について町の考えを問う（答弁者：町長）。"},
+    {session:"r8t2",name:"河内 直子",kana:"かわち なおこ",seat:12,pending:true,tags:["健康・福祉","子育て・教育","行政・財政"],
+     themes:["学校校舎敷地外での喫煙について","機構改革について"],
+     summary:"通告の要旨 — 学校校舎敷地外・通用門の近くでの喫煙が多く見受けられるとして、多くの子どもたちが通る場所での喫煙は、子どもたちの健康を守るうえでも改めるべきではと問う（答弁者：教育長）。また各課の機構改革が現在どの程度まで進んでいるのかを町長に問う。"},
+    {session:"r8t2",name:"原田 邦男",kana:"はらだ くにお",seat:2,pending:true,tags:["暮らし・地域","農業・環境","行政・財政"],
+     themes:["老朽化した町営住宅の今後について","農業者支援について"],
+     summary:"通告の要旨 — 耐用年数を大幅に超過した町営住宅が多数存在するとされる実態、住民の生命・健康・財産を守る観点からの現状認識と対策、町営住宅管理条例第37条に基づく建て替えの考えを問う。また農業者支援について、生産資材高騰への町独自の一部助成、小規模農家への支援、担い手確保・高齢化対策、急増する鳥獣被害への対策を問う（答弁者：町長）。"}
   ],
   links:[
     {k:"OFFICIAL",title:"筑前町議会 トップページ",desc:"議会の構成・日程・お知らせなど公式の入口。",url:"https://www.town.chikuzen.fukuoka.jp/li/100/index.html"},
@@ -484,8 +576,140 @@ const DATA = {
     {k:"MINUTES",title:"会議録",desc:"各定例会・臨時会の会議録（年度別）。",url:"https://www.town.chikuzen.fukuoka.jp/li/100/050/index.html"},
     {k:"NEWSLETTER",title:"議会だより",desc:"一般質問や議決結果をまとめた広報紙のバックナンバー。",url:"https://www.town.chikuzen.fukuoka.jp/li/100/040/index.html"},
     {k:"VIDEO",title:"本会議 録画・ライブ配信",desc:"発言の全内容を映像で。各議員の一般質問も視聴できます。",url:"https://smart.discussvision.net/smart/tenant/chikuzen/WebView/rd/council.html"},
-    {k:"PDF",title:"議会だより 第80号（PDF）",desc:"このサイトの一般質問データの主な出典（令和8年5月発行）。",url:"https://www.town.chikuzen.fukuoka.jp/S027/010/040/011/uguisu_80.pdf"}
-  ]
+    {k:"PDF",title:"議会だより 第80号（PDF）",desc:"3月定例会の一般質問・予算・議決データの主な出典（令和8年5月発行）。",url:"https://www.town.chikuzen.fukuoka.jp/S027/010/040/011/uguisu_80.pdf"},
+    {k:"PDF",title:"一般質問通告書（令和8年6月定例会）",desc:"6月定例会で誰が何を質問するかの通告一覧。6月分の質問要旨の出典。",url:"https://www.town.chikuzen.fukuoka.jp/S027/010/010/010/R8.6ippanshitsumon.pdf"}
+  ],
+  /* 令和8年度 当初予算のやさしい解説（出典：議会だより第80号） */
+  budget:{
+    year:"令和8年度",
+    total:"169億3811万円",
+    totalNote:"一般会計の当初予算総額。過去最高の169億円超えで、前年度より10.6％増（前年度は町長選挙を控えた骨格予算。選挙後の第1号補正予算と比較しても4.9％増）。",
+    cats:[
+      {name:"🧒 子育て",items:[
+        {l:"保育所等 運営委託料",a:"15億5121万円",n:155121},
+        {l:"学童保育所 運営委託料",a:"1億2272万円",n:12272},
+        {l:"こども誰でも通園制度 運営委託料（4月から）",a:"1321万円",n:1321}
+      ]},
+      {name:"🏫 教育",items:[
+        {l:"教育情報化推進事業",a:"2億9450万円",n:29450},
+        {l:"小学校のトイレ改修工事",a:"2億5001万円",n:25001},
+        {l:"学校給食費 物価高騰対策支援金",a:"1億4174万円",n:14174}
+      ]},
+      {name:"🌾 農業・環境",items:[
+        {l:"農業環境整備事業",a:"3億8542万円",n:38542},
+        {l:"多面的機能支払交付金",a:"1億2248万円",n:12248}
+      ]},
+      {name:"🛣️ 道路・防災",items:[
+        {l:"道路新設改良工事費",a:"1億6850万円",n:16850},
+        {l:"防災行政無線 更新委託料",a:"6490万円",n:6490},
+        {l:"消防施設整備事業",a:"3168万円",n:3168},
+        {l:"交通安全対策工事費",a:"3000万円",n:3000}
+      ]}
+    ],
+    qa:[
+      {q:"学童保育所の運営委託料が約3000万円増えた理由は？",a:"各学童保育所に常勤指導員を2名以上配置する体制見直しを行ったため。",dept:"こども課長"},
+      {q:"「こども誰でも通園制度」は今後増える見込みは？",a:"4月から美和みどり保育所と子育て支援センター「あいあい」でスタート。町内の保育園などに協力依頼を行い増やしていきたい。",dept:"こども課長"},
+      {q:"こどもの居場所づくり支援事業補助金の内容は？",a:"こども食堂など地域でこどもの居場所づくりを行う団体へ、運営費・開設費など年間上限20万円を補助する。",dept:"こども課長"},
+      {q:"不登校児童生徒支援事業が前年度から増額となった理由は？",a:"フリースクールへの補助金を児童生徒1人当たり5千円から7千円に増額したため。",dept:"教育課長"},
+      {q:"図書館の電子書籍使用料440万円は何冊分？いつから使える？",a:"電子書籍1000冊を予定。令和8年9月には開始したい。スマートフォンやタブレットなどで利用できる。",dept:"生涯学習課長"},
+      {q:"ふるさと応援寄付金の目標を1億円増やし3億円に。どんな取り組みを？",a:"委託事業者から町専属の社員を企画課に配置し、返礼品事業者へのアプローチに力を入れる。",dept:"企画課長"}
+    ]
+  },
+  /* 議案と議決結果（出典：議会だより第80号。議員ごとの賛否は同紙P6〜7参照） */
+  bills:[
+    {session:"r8t1",
+     note:"諮問1件・同意4件・報告2件・議案31件が提案され、審議の結果、すべて原案のとおり可決・承認されました。",
+     groups:[
+      {cat:"新年度予算",result:"可決",items:[
+        "令和8年度 一般会計予算（169億3811万円）",
+        "令和8年度 国民健康保険事業特別会計予算",
+        "令和8年度 後期高齢者医療特別会計予算",
+        "令和8年度 住宅新築資金等貸付事業特別会計予算",
+        "令和8年度 工業用地造成事業特別会計予算",
+        "令和8年度 水道事業会計予算",
+        "令和8年度 下水道事業会計予算"
+      ]},
+      {cat:"条例",result:"可決",items:[
+        "国民健康保険税条例の一部改正（税率等の改正・令和8年4月施行）",
+        "特定乳児等通園支援事業の運営基準を定める条例の制定",
+        "乳児等通園支援事業の設備・運営基準条例の一部改正",
+        "特定教育・保育施設等の保育料に関する条例の一部改正",
+        "大刀洗平和記念館条例の一部改正（休館日変更・館内撮影禁止）",
+        "ふるさと応援寄付条例の一部改正",
+        "自動車駐車場条例の一部改正",
+        "行政組織条例の一部改正",
+        "行政手続条例の一部改正",
+        "一般職の職員の給与に関する条例の一部改正",
+        "個人番号の利用に関する条例の一部改正",
+        "防災会議条例の一部改正",
+        "地方自治法改正に伴う関係条例の整理に関する条例の制定"
+      ]},
+      {cat:"補正予算",result:"可決",items:[
+        "令和7年度 一般会計補正予算（第8号）3億5521万円減額・（第9号）1650万円増額",
+        "国民健康保険事業特別会計補正予算（第4号）",
+        "工業用地造成事業特別会計補正予算（第2号）",
+        "下水道事業会計補正予算（第2号）／水道事業会計補正予算（第3号）"
+      ]},
+      {cat:"人事",result:"同意・適任",items:[
+        "教育委員会教育長の任命（再任）",
+        "教育委員会委員の任命（新任）",
+        "人権擁護委員の推薦（新任）",
+        "固定資産評価審査委員会委員の選任（再任）",
+        "甘木・朝倉広域市町村圏事務組合等公平委員会委員の選任（再任）"
+      ]},
+      {cat:"その他",result:"可決",items:[
+        "権利の放棄／財産の処分",
+        "町道の路線認定・路線変更",
+        "福岡県市町村職員退職手当組合規約の変更"
+      ]},
+      {cat:"報告",result:"報告のみ",items:[
+        "筑前町新型インフルエンザ等対策行動計画",
+        "損害賠償（福岡市早良区内での事故）"
+      ]}
+     ]},
+    {session:"r8r1",
+     note:"承認1件・議案1件が提案され、審議の結果、承認・可決されました。",
+     groups:[
+      {cat:"補正予算",result:"承認・可決",items:[
+        "令和7年度 一般会計補正予算（第6号）・（第7号）計4億9991万円増額（衆議院議員総選挙、物価高騰対策地域振興券〈全住民に1人5000円分〉など）"
+      ]}
+     ]},
+    {session:"r7r5",
+     note:"議案12件が提案され、審議の結果、承認・可決されました。",
+     groups:[
+      {cat:"条例",result:"可決",items:[
+        "会計年度任用職員（第1号・第2号）の報酬・給与等に関する条例の改正・整理",
+        "一般職の職員の給与に関する条例の一部改正",
+        "特別職の職員の給与・旅費に関する条例の一部改正",
+        "議会議員の議員報酬・旅費等に関する条例の一部改正"
+      ]},
+      {cat:"補正予算",result:"可決",items:[
+        "令和7年度 一般会計補正予算（第5号）2億589万円増額（学校体育館の空調設備設置など）",
+        "国民健康保険事業特別会計補正予算（第3号）",
+        "水道事業会計補正予算（第2号）／下水道事業会計補正予算（第1号）"
+      ]},
+      {cat:"その他",result:"可決",items:[
+        "下水道の排水協定の変更／水道の給水協定"
+      ]}
+     ]}
+  ],
+  /* 町民の声（出典：議会だより第80号・第11回議会報告会） */
+  voices:{
+    title:"💬 町民の声 — 第11回 議会報告会より",
+    dates:"令和8年2月1日（夜須地区）・2月8日（三輪地区）で開催。参加者から出た主な意見・要望です。",
+    items:[
+      "高校の学区制の見直しをして欲しい",
+      "通学路に防犯カメラが必要ではないか",
+      "通学路に歩道の設置を",
+      "大雨対策をお願いしたい",
+      "高齢化で、河川敷・ため池・空き家等の草刈りが厳しい",
+      "山間部の過疎化への対策を",
+      "町の施設は借りやすく使いやすくするべき",
+      "新しい世帯が区や隣組に入らない（コミュニティの希薄化）",
+      "排水路の問題について"
+    ],
+    note:"議会は「これからも意見・要望を反映させ充実した議会にしていく」としています（議会だより第80号より）。"
+  }
 };
 
 /* ============ helpers ============ */
@@ -493,7 +717,7 @@ const $ = s => document.querySelector(s);
 const el = (t,c,h) => { const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e; };
 const initial = n => n.replace(/\s/g,'').charAt(0);
 const memberBySeat = s => DATA.members.find(m=>m.seat===s);
-const qCountFor = name => DATA.questions.filter(q=>q.name===name).length;
+const qCountFor = name => DATA.questions.filter(q=>q.name===name).reduce((a,q)=>a+q.themes.length,0);
 
 /* ============ tabs ============ */
 function go(tab){
@@ -521,15 +745,21 @@ function renderHome(){
   // schedule
   $('#schedule').innerHTML = DATA.schedule.map(s=>`<li><span class="d">${s.d}</span><span>${s.t}</span></li>`).join('');
 
-  // highlights (first 3)
-  $('#home-highlights').innerHTML = DATA.questions.slice(0,3).map(q=>{
-    const m = DATA.members.find(x=>x.name===q.name);
-    return `<div class="card q-card">
+  // highlights: 最新会期の質問から3件
+  const latest = DATA.sessions.find(x=>x.latest);
+  $('#home-highlights').innerHTML = DATA.questions.filter(q=>q.session===latest.id).slice(0,3).map(q=>
+    `<div class="card q-card">
       <div class="q-mem"><div class="q-av">${initial(q.name)}</div>
         <div><div class="q-mname">${q.name}</div><div class="q-mkana">${q.kana}</div></div></div>
       <div class="q-themes">${q.themes.map(t=>`<span class="q-theme">${t}</span>`).join('')}</div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
+
+  // 町民の声
+  const v = DATA.voices;
+  $('#home-voices').innerHTML =
+    `<h4>${v.title}</h4><div class="vd">${v.dates}</div>
+     <ul>${v.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+     <div class="vn">${v.note}</div>`;
 }
 
 /* ============ MEMBERS ============ */
@@ -555,7 +785,7 @@ function renderMembers(){
          <span class="tag wins">当選${m.wins}回</span>
        </div>
        <div class="m-comm">${m.committees.join('／')}</div>
-       <div class="m-qcount">3月定例会の一般質問：<b>${qc?qc+'テーマ':'なし'}</b>${qc?' ▸':''}</div>`;
+       <div class="m-qcount">一般質問（3月・6月定例会）：<b>${qc?qc+'テーマ':'なし'}</b>${qc?' ▸':''}</div>`;
     c.onclick=()=>openMember(m);
     grid.appendChild(c);
   });
@@ -567,16 +797,17 @@ document.querySelectorAll('[data-kaiha]').forEach(ch=>ch.onclick=()=>{
 $('#m-search').oninput=e=>{mQuery=e.target.value;renderMembers();};
 
 /* ============ QUESTIONS ============ */
-let qQuery='', qFilter='all';
+let qQuery='', qFilter='all', qTag='all';
 function renderQuestions(){
   const box = $('#questions-list'); box.innerHTML='';
   DATA.sessions.forEach(sess=>{
     let qs = DATA.questions.filter(q=>q.session===sess.id);
     if(!qs.length) return;
     if(qFilter!=='all') qs=qs.filter(q=>q.name===qFilter);
+    if(qTag!=='all') qs=qs.filter(q=>(q.tags||[]).includes(qTag));
     if(qQuery){
       const kw=qQuery.trim();
-      qs=qs.filter(q=>(q.name+q.kana+q.themes.join('')+q.summary).includes(kw));
+      qs=qs.filter(q=>(q.name+q.kana+q.themes.join('')+(q.summary||'')+(q.tags||[]).join('')).includes(kw));
     }
     if(!qs.length) return;
     const wrap = el('div','q-session');
@@ -589,7 +820,9 @@ function renderQuestions(){
            <div><div class="q-mname">${q.name} <span style="font-size:.7rem;color:var(--muted);font-weight:400">議席${q.seat}</span></div>
            <div class="q-mkana">${q.kana}</div></div></div>
          <div class="q-themes">${q.themes.map(t=>`<span class="q-theme">${t}</span>`).join('')}</div>
+         ${q.pending?'<div class="pending-badge">📋 通告書より — 答弁の要旨は議会だより第81号（8月ごろ）の掲載後に追記予定</div>':''}
          <div class="q-summary">${q.summary}</div>
+         <div class="tag-badges">${(q.tags||[]).map(t=>`<span class="tag-badge">${t}</span>`).join('')}</div>
          <div class="q-links">${links}</div>`;
       wrap.appendChild(c);
     });
@@ -608,6 +841,16 @@ function buildQFilters(){
     bar.querySelectorAll('[data-qfilter]').forEach(x=>x.classList.remove('active'));
     ch.classList.add('active'); qFilter=ch.dataset.qfilter; renderQuestions();
   });
+  // テーマ（タグ）チップ
+  const tbar = $('#tag-chips');
+  const tags=[...new Set(DATA.questions.flatMap(q=>q.tags||[]))];
+  tags.forEach(t=>{
+    const b=el('button','chip',t); b.dataset.qtag=t; tbar.appendChild(b);
+  });
+  tbar.querySelectorAll('[data-qtag]').forEach(ch=>ch.onclick=()=>{
+    tbar.querySelectorAll('[data-qtag]').forEach(x=>x.classList.remove('active'));
+    ch.classList.add('active'); qTag=ch.dataset.qtag; renderQuestions();
+  });
 }
 
 /* ============ LINKS ============ */
@@ -625,15 +868,20 @@ function openMember(m){
     `<div class="avatar" style="width:52px;height:52px">${initial(m.name)}</div>
      <div><h3>${m.name}</h3><div class="m-sub">${m.kana} ／ 議席${m.seat} ／ ${m.role||'議員'} ／ ${m.kaiha} ／ 当選${m.wins}回</div></div>`;
   let body = `<h5>所属委員会</h5><p style="font-size:.9rem;color:var(--ink-soft)">${m.committees.join('<br>')}</p>`;
-  const qs = DATA.questions.filter(q=>q.name===m.name);
-  if(qs.length){
-    body += `<h5>令和8年3月定例会の一般質問</h5>`;
+  let any=false;
+  DATA.sessions.forEach(sess=>{
+    const qs = DATA.questions.filter(q=>q.name===m.name && q.session===sess.id);
+    if(!qs.length) return;
+    any=true;
+    body += `<h5>${sess.name} の一般質問</h5>`;
     qs.forEach(q=>{
-      body += `<div class="qblock"><div class="qt">${q.themes.join(' ／ ')}</div><div class="qs">${q.summary}</div></div>`;
+      body += `<div class="qblock">${q.pending?'<div class="pending-badge">📋 通告書より — 答弁は議会だより第81号で追記予定</div>':''}<div class="qt">${q.themes.join(' ／ ')}</div><div class="qs">${q.summary}</div></div>`;
     });
+  });
+  if(any){
     body += `<a class="q-link" href="${DATA.meta.video}" target="_blank" rel="noopener" style="margin-top:6px">▶ 録画配信で発言の全文を見る</a>`;
   }else{
-    body += `<h5>一般質問</h5><p style="font-size:.9rem;color:var(--muted)">令和8年3月定例会では一般質問の登壇はありませんでした。過去・今後の質問は公式の録画配信でご確認いただけます。</p>`;
+    body += `<h5>一般質問</h5><p style="font-size:.9rem;color:var(--muted)">直近の定例会（3月・6月）では一般質問の登壇はありませんでした。過去・今後の質問は公式の録画配信でご確認いただけます。</p>`;
   }
   $('#modal-body').innerHTML = body;
   $('#modal-bg').classList.add('open');
@@ -641,6 +889,26 @@ function openMember(m){
 }
 function closeModal(){$('#modal-bg').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* ============ BUDGET & BILLS ============ */
+function renderBudget(){
+  const b = DATA.budget;
+  $('#b-total').innerHTML =
+    `<span class="yr">${b.year} 一般会計 当初予算</span><span class="yen">${b.total}</span><p>${b.totalNote}</p>`;
+  const max = Math.max(...b.cats.flatMap(c=>c.items.map(i=>i.n)));
+  $('#b-cats').innerHTML = b.cats.map(c=>
+    `<div class="card b-cat"><h4>${c.name}</h4>${
+      c.items.map(i=>`<div class="bar-row"><span class="lbl">${i.l}</span><span class="track"><span class="fill" style="width:${Math.max(3, i.n/max*100)}%"></span></span><span class="amt">${i.a}</span></div>`).join('')
+    }</div>`).join('');
+  $('#b-qa').innerHTML = b.qa.map(x=>
+    `<div class="card qa-item"><div class="q">${x.q}</div><div class="a">${x.a}</div><span class="dept">（${x.dept}）</span></div>`).join('');
+  $('#bills').innerHTML = DATA.bills.map(bs=>{
+    const s = DATA.sessions.find(x=>x.id===bs.session);
+    return `<div class="bill-session"><h3>${s.name}</h3><div class="note">${bs.note}</div>${
+      bs.groups.map(g=>`<div class="card bill-group"><div class="bg-head"><span class="cat">${g.cat}</span><span class="res">${g.result}</span></div><ul>${g.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('')
+    }</div>`;
+  }).join('');
+}
 
 /* ============ site branding（シリーズ共通で site ブロックから反映） ============ */
 function applySite(){
@@ -652,7 +920,7 @@ function applySite(){
 }
 
 /* ============ init ============ */
-applySite(); renderHome(); renderMembers(); buildQFilters(); renderQuestions(); renderLinks();
+applySite(); renderHome(); renderMembers(); buildQFilters(); renderQuestions(); renderBudget(); renderLinks();
 </script>
 </body>
 </html>
