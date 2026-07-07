@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朝倉市 議会びより ｜ 市の議会が、よくわかる。</title>
+<meta name="description" content="福岡県朝倉市の市議会を、市民が親しみやすく追える非公式ポータル「議会びより」。議員の顔ぶれ、一般質問、議会のしくみをわかりやすく。">
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#fffdf8;
+    --ink:#1f2a44;
+    --ink-soft:#42506e;
+    --muted:#7b7566;
+    --line:#e4dccb;
+    --cosmos:#d5477e;      /* 市の花コスモス */
+    --cosmos-soft:#f6dfe9;
+    --leaf:#3f7d5b;        /* くすのき・実り */
+    --gold:#c98a2b;
+    --navy:#22315a;
+    --shadow:0 1px 2px rgba(31,42,68,.05),0 8px 28px rgba(31,42,68,.08);
+    --shadow-lg:0 12px 40px rgba(31,42,68,.14);
+    /* 見出し：丸みのある親しみやすい書体（Mac=ヒラギノ丸ゴ／Win=BIZ UDゴシック） */
+    --serif:"Hiragino Maru Gothic ProN","Hiragino Maru Gothic Pro","BIZ UDPGothic","Kosugi Maru","Rounded Mplus 1c","YuGothic","Yu Gothic",sans-serif;
+    /* 本文：やさしく読みやすいUDゴシック */
+    --sans:"BIZ UDPGothic","Hiragino Maru Gothic ProN","Hiragino Kaku Gothic ProN","Yu Gothic UI","YuGothic","Yu Gothic","Meiryo",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 12% -5%,rgba(213,71,126,.07),transparent 42%),
+      radial-gradient(circle at 92% 8%,rgba(63,125,91,.07),transparent 40%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
+    line-height:1.75;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-size-adjust:100%;
+  }
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,243,234,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;
+    font-size:1.05rem;color:var(--navy);text-decoration:none;white-space:nowrap}
+  .brand .mark{width:26px;height:26px;flex:none}
+  .brand-loc{color:var(--ink-soft);font-weight:700}
+  .brand-series{color:var(--cosmos)}
+  .brand-loc::after{content:"｜";color:var(--line);margin:0 1px;font-weight:400}
+  .badge-unofficial{font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.08em;
+    color:var(--cosmos);border:1px solid var(--cosmos);border-radius:999px;padding:2px 7px;background:#fff}
+  nav.tabs{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs button{
+    font-family:var(--sans);font-size:.86rem;font-weight:700;color:var(--ink-soft);
+    background:none;border:none;cursor:pointer;padding:8px 12px;border-radius:9px;white-space:nowrap;
+    transition:background .18s,color .18s;
+  }
+  nav.tabs button:hover{background:#fff}
+  nav.tabs button.active{color:#fff;background:var(--navy)}
+
+  /* ---------- Hero ---------- */
+  header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  header.hero .wrap{padding:56px 20px 46px;position:relative;z-index:2}
+  .eyebrow{font-family:var(--serif);font-size:.9rem;color:var(--cosmos);font-weight:700;letter-spacing:.14em;margin-bottom:14px}
+  header.hero h1{font-family:var(--serif);font-weight:700;line-height:1.18;
+    font-size:clamp(2rem,6vw,3.35rem);color:var(--navy);letter-spacing:.01em}
+  header.hero h1 .accent{
+    background:linear-gradient(transparent 62%,var(--cosmos-soft) 62%);padding:0 .1em}
+  header.hero p.lead{margin-top:20px;max-width:34em;font-size:1.05rem;color:var(--ink-soft)}
+  .hero-cosmos{position:absolute;right:-40px;top:-30px;width:320px;opacity:.5;z-index:1;pointer-events:none}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:26px;margin-top:30px}
+  .hero-stats .st{display:flex;flex-direction:column;line-height:1.2}
+  .hero-stats .st b{font-family:var(--serif);font-size:1.9rem;color:var(--navy)}
+  .hero-stats .st span{font-size:.78rem;color:var(--muted);font-weight:700;letter-spacing:.04em}
+
+  /* ---------- Sections ---------- */
+  main{padding:44px 0 80px}
+  section.panel{display:none;animation:rise .5s ease both}
+  section.panel.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .sec-head{margin-bottom:24px}
+  .sec-head .kicker{font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.16em;
+    color:var(--leaf);text-transform:uppercase}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.1rem);color:var(--navy);margin-top:6px}
+  .sec-head p{color:var(--ink-soft);margin-top:8px;max-width:44em;font-size:.96rem}
+
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+  .grid{display:grid;gap:16px}
+
+  /* ---------- Home ---------- */
+  .now-card{padding:26px 26px 22px;position:relative;overflow:hidden}
+  .now-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(var(--cosmos),var(--gold))}
+  .now-tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.08em;color:#fff;
+    background:var(--cosmos);border-radius:999px;padding:3px 11px;margin-bottom:12px}
+  .now-card h3{font-family:var(--serif);font-size:1.5rem;color:var(--navy)}
+  .now-meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;color:var(--ink-soft);font-size:.92rem}
+  .now-meta b{color:var(--navy)}
+  .home-2col{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:16px}
+  .kaiha-card,.mini-card{padding:22px 24px}
+  .kaiha-card h4,.mini-card h4{font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:14px}
+  .kaiha-bar{display:flex;height:16px;border-radius:8px;overflow:hidden;margin-bottom:14px}
+  .kaiha-bar i{display:block;height:100%}
+  .kaiha-legend{display:flex;flex-direction:column;gap:8px}
+  .kaiha-legend .row{display:flex;align-items:center;gap:9px;font-size:.9rem}
+  .kaiha-legend .dot{width:11px;height:11px;border-radius:3px;flex:none}
+  .kaiha-legend .n{margin-left:auto;font-family:var(--serif);font-weight:700;color:var(--navy)}
+  .mini-card ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .mini-card li{display:flex;gap:10px;font-size:.9rem;color:var(--ink-soft);align-items:baseline}
+  .mini-card li .d{font-family:var(--serif);color:var(--cosmos);font-weight:700;white-space:nowrap}
+  .home-q h4{font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:26px 0 4px}
+  .jump-btn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:.86rem;font-weight:700;
+    color:var(--cosmos);cursor:pointer;background:none;border:none;padding:0}
+
+  /* ---------- Members ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;align-items:center}
+  .filters input[type=search]{
+    font-family:var(--sans);font-size:.9rem;padding:9px 14px;border:1px solid var(--line);
+    border-radius:10px;background:var(--paper-2);color:var(--ink);min-width:180px;flex:1 1 200px}
+  .filters input:focus{outline:2px solid var(--cosmos-soft);border-color:var(--cosmos)}
+  .chip{font-family:var(--sans);font-size:.8rem;font-weight:700;padding:7px 13px;border-radius:999px;
+    border:1px solid var(--line);background:var(--paper-2);color:var(--ink-soft);cursor:pointer;transition:.16s}
+  .chip:hover{border-color:var(--cosmos)}
+  .chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .members-grid{grid-template-columns:repeat(auto-fill,minmax(232px,1fr))}
+  .m-card{padding:18px 18px 16px;cursor:pointer;transition:transform .18s,box-shadow .18s;position:relative}
+  .m-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .m-top{display:flex;align-items:center;gap:13px}
+  .avatar{width:52px;height:52px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-family:var(--serif);font-size:1.4rem;font-weight:700;color:#fff;background:var(--navy)}
+  .m-card[data-role="議長"] .avatar{background:linear-gradient(135deg,var(--cosmos),var(--gold))}
+  .m-card[data-role="副議長"] .avatar{background:linear-gradient(135deg,var(--leaf),var(--navy))}
+  .m-name{font-family:var(--serif);font-size:1.18rem;color:var(--navy);font-weight:700;line-height:1.3}
+  .m-kana{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+  .m-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .tag{font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:6px;letter-spacing:.02em}
+  .tag.seat{background:#eef1f7;color:var(--navy)}
+  .tag.role{background:var(--cosmos-soft);color:var(--cosmos)}
+  .tag.kaiha{background:#eaf3ed;color:var(--leaf)}
+  .tag.wins{background:#f5ecdb;color:var(--gold)}
+  .m-comm{margin-top:12px;font-size:.78rem;color:var(--muted);line-height:1.6}
+  .m-qcount{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:.82rem;color:var(--ink-soft)}
+  .m-qcount b{color:var(--cosmos)}
+
+  /* ---------- Questions ---------- */
+  .q-session{margin-bottom:30px}
+  .q-session-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;
+    padding-bottom:10px;border-bottom:2px solid var(--navy)}
+  .q-session-head h3{font-family:var(--serif);font-size:1.35rem;color:var(--navy)}
+  .q-session-head .term{font-size:.82rem;color:var(--muted);font-weight:700}
+  .q-session-head .cnt{margin-left:auto;font-size:.8rem;color:var(--cosmos);font-weight:800}
+  .q-card{padding:20px 22px;margin-top:14px}
+  .q-card .q-mem{display:flex;align-items:center;gap:11px}
+  .q-card .q-av{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-family:var(--serif);font-size:1.1rem;color:#fff;background:var(--navy);font-weight:700}
+  .q-card .q-mname{font-family:var(--serif);font-size:1.1rem;color:var(--navy);font-weight:700}
+  .q-card .q-mkana{font-size:.7rem;color:var(--muted)}
+  .q-themes{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 12px}
+  .q-theme{font-size:.8rem;font-weight:700;color:var(--navy);background:#eef1f7;border-radius:7px;padding:5px 11px;
+    border-left:3px solid var(--cosmos)}
+  .q-summary{font-size:.94rem;color:var(--ink-soft);line-height:1.85}
+  .q-links{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .q-link{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;color:var(--leaf);
+    text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;background:var(--paper-2)}
+  .q-link:hover{border-color:var(--leaf)}
+  .q-empty{padding:28px;text-align:center;color:var(--muted);font-size:.92rem}
+
+  /* ---------- Learn ---------- */
+  .learn-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .learn-card{padding:22px 24px}
+  .learn-card .ic{font-size:1.7rem;line-height:1}
+  .learn-card h3{font-family:var(--serif);font-size:1.15rem;color:var(--navy);margin:12px 0 8px}
+  .learn-card p{font-size:.9rem;color:var(--ink-soft);line-height:1.8}
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin-top:8px}
+  .flow .step{flex:1 1 130px;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;
+    padding:14px 15px;position:relative}
+  .flow .step .no{font-family:var(--serif);color:var(--cosmos);font-weight:700;font-size:.9rem}
+  .flow .step h4{font-family:var(--serif);color:var(--navy);font-size:1rem;margin:2px 0 4px}
+  .flow .step p{font-size:.8rem;color:var(--muted);line-height:1.6}
+
+  /* ---------- Links ---------- */
+  .link-list{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .link-card{padding:20px 22px;text-decoration:none;display:block;transition:transform .18s,box-shadow .18s}
+  .link-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .link-card .lc-k{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--leaf)}
+  .link-card h3{font-family:var(--serif);font-size:1.12rem;color:var(--navy);margin:6px 0 6px}
+  .link-card p{font-size:.85rem;color:var(--ink-soft)}
+  .link-card .arrow{color:var(--cosmos);font-weight:700;margin-top:10px;display:inline-block;font-size:.85rem}
+  .notice{background:var(--cosmos-soft);border:1px solid #eec6d6;border-radius:14px;padding:18px 22px;
+    margin-top:26px;font-size:.88rem;color:#7a2f4f;line-height:1.8}
+  .notice b{color:#5f2340}
+
+  /* ---------- Budget & Bills ---------- */
+  .b-total{padding:26px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+  .b-total .yr{font-size:.85rem;font-weight:800;color:var(--cosmos)}
+  .b-total .yen{font-family:var(--serif);font-size:clamp(1.9rem,5.5vw,2.7rem);color:var(--navy);font-weight:700}
+  .b-total p{flex-basis:100%;font-size:.88rem;color:var(--ink-soft);margin-top:4px}
+  .b-cat{padding:20px 22px;margin-top:14px}
+  .b-cat h4{font-family:var(--serif);color:var(--navy);font-size:1.05rem;margin-bottom:10px}
+  .bar-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-size:.84rem}
+  .bar-row .lbl{flex:0 0 44%;color:var(--ink-soft);line-height:1.45}
+  .bar-row .track{flex:1;height:12px;background:#eef1f7;border-radius:6px;overflow:hidden}
+  .bar-row .fill{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cosmos),var(--gold))}
+  .bar-row .amt{flex:0 0 auto;font-family:var(--serif);font-weight:700;color:var(--navy);white-space:nowrap}
+  .qa-item{padding:16px 20px;margin-top:12px}
+  .qa-item .q{font-weight:700;color:var(--navy);font-size:.94rem}
+  .qa-item .q::before{content:"問";color:#fff;background:var(--cosmos);border-radius:6px;font-size:.72rem;padding:2px 7px;margin-right:8px}
+  .qa-item .a{margin-top:8px;font-size:.9rem;color:var(--ink-soft);line-height:1.8}
+  .qa-item .a::before{content:"答";color:#fff;background:var(--leaf);border-radius:6px;font-size:.72rem;padding:2px 7px;margin-right:8px}
+  .qa-item .dept{display:block;text-align:right;font-size:.75rem;color:var(--muted);margin-top:6px}
+  .bill-session{margin-top:28px}
+  .bill-session h3{font-family:var(--serif);font-size:1.2rem;color:var(--navy);padding-bottom:8px;border-bottom:2px solid var(--navy)}
+  .bill-session .note{font-size:.85rem;color:var(--ink-soft);margin:8px 0 4px}
+  .bill-group{padding:16px 20px;margin-top:12px}
+  .bill-group .bg-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .bill-group .cat{font-size:.78rem;font-weight:800;color:var(--navy);background:#eef1f7;border-radius:6px;padding:3px 10px}
+  .bill-group .res{font-size:.78rem;font-weight:800;color:var(--leaf)}
+  .bill-group ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+  .bill-group li{font-size:.86rem;color:var(--ink-soft);padding-left:14px;position:relative;line-height:1.6}
+  .bill-group li::before{content:"・";position:absolute;left:0;color:var(--cosmos)}
+
+  /* ---------- Voices ---------- */
+  .voices-card{padding:22px 24px;margin-top:26px}
+  .voices-card h4{font-family:var(--serif);font-size:1.05rem;color:var(--navy)}
+  .voices-card .vd{font-size:.8rem;color:var(--muted);margin:4px 0 14px}
+  .voices-card ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px 14px}
+  .voices-card li{font-size:.87rem;color:var(--ink-soft);background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 13px;line-height:1.6}
+  .voices-card .vn{font-size:.78rem;color:var(--muted);margin-top:12px}
+
+  /* ---------- Tags & pending ---------- */
+  .tag-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .tag-badge{font-size:.68rem;font-weight:700;color:var(--leaf);border:1px solid #cfe2d6;background:#f3f8f5;border-radius:999px;padding:2px 9px}
+  .pending-badge{display:inline-block;font-size:.74rem;font-weight:700;color:var(--gold);background:#faf3e3;border:1px solid #ecd9ad;border-radius:8px;padding:4px 10px;margin-bottom:10px}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--line);padding:30px 0 46px;color:var(--muted);font-size:.82rem;text-align:center}
+  footer .up{color:var(--ink-soft)}
+  footer a{color:var(--leaf);font-weight:700;text-decoration:none}
+
+  /* ---------- Modal ---------- */
+  .modal-bg{position:fixed;inset:0;background:rgba(31,42,68,.5);backdrop-filter:blur(3px);z-index:100;
+    display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.open{display:flex;animation:rise .3s ease both}
+  .modal{background:var(--paper-2);border-radius:18px;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;
+    box-shadow:var(--shadow-lg);position:relative}
+  .modal .mhd{padding:24px 26px 18px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:center;
+    position:sticky;top:0;background:var(--paper-2)}
+  .modal .mbody{padding:22px 26px 28px}
+  .modal .close{position:absolute;right:16px;top:16px;width:34px;height:34px;border-radius:50%;border:none;
+    background:#eef1f7;color:var(--navy);font-size:1.1rem;cursor:pointer;line-height:1}
+  .modal h3{font-family:var(--serif);font-size:1.4rem;color:var(--navy)}
+  .modal .m-sub{font-size:.75rem;color:var(--muted)}
+  .modal .mbody h5{font-family:var(--serif);color:var(--cosmos);font-size:.95rem;margin:18px 0 8px;letter-spacing:.04em}
+  .modal .mbody .qblock{border-left:3px solid var(--cosmos-soft);padding-left:14px;margin-bottom:16px}
+  .modal .mbody .qt{font-weight:700;color:var(--navy);font-size:.95rem}
+  .modal .mbody .qs{font-size:.9rem;color:var(--ink-soft);margin-top:4px;line-height:1.8}
+
+  @media(max-width:720px){
+    .home-2col{grid-template-columns:1fr}
+    .brand span.full{display:none}
+    header.hero .wrap{padding:40px 20px 34px}
+    .hero-cosmos{width:210px;opacity:.35}
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG defs: cosmos flower reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="cosmos">
+    <g>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-16" rx="7" ry="14" fill="#e79bbd" transform="rotate(315)"/>
+    </g>
+    <circle r="6" fill="#e0a52b"/>
+  </g>
+</defs></svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#" onclick="go('home');return false;">
+      <svg class="mark" viewBox="-24 -24 48 48"><use href="#cosmos"/></svg>
+      <span class="full"><span class="brand-loc">朝倉市</span> <span class="brand-series">議会びより</span></span>
+    </a>
+    <span class="badge-unofficial">非公式</span>
+    <nav class="tabs" id="tabs">
+      <button data-tab="home" class="active">ホーム</button>
+      <button data-tab="members">議員</button>
+      <button data-tab="questions">一般質問</button>
+      <button data-tab="budget">予算・議決</button>
+      <button data-tab="learn">議会のしくみ</button>
+      <button data-tab="links">リンク・出典</button>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="hero-cosmos" viewBox="-60 -60 120 120" aria-hidden="true">
+    <use href="#cosmos" transform="translate(-20,-10) scale(1.2)"/>
+    <use href="#cosmos" transform="translate(28,18) scale(.8) rotate(20)"/>
+    <use href="#cosmos" transform="translate(20,-28) scale(.6) rotate(40)"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow" id="hero-eyebrow">福岡県 朝倉市</div>
+    <h1>市議会を、<br><span class="accent">もっと身近に。</span></h1>
+    <p class="lead">朝倉市議会でいま何が話し合われているのか。だれが、どんな一般質問をしているのか。市民の目線でやさしくまとめた、非公式のポータルサイトです。</p>
+    <div class="hero-stats">
+      <div class="st"><b>18</b><span>議員定数</span></div>
+      <div class="st"><b>14</b><span>6月定例会の質問者</span></div>
+      <div class="st"><b>3</b><span>常任委員会</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= HOME ================= -->
+  <section class="panel active" id="home">
+    <div class="sec-head">
+      <div class="kicker">Now ・ 議会の今</div>
+      <h2>直近の議会</h2>
+    </div>
+    <div class="card now-card" id="now-card"></div>
+
+    <div class="home-2col">
+      <div class="card kaiha-card">
+        <h4>党派の内訳</h4>
+        <div class="kaiha-bar" id="kaiha-bar"></div>
+        <div class="kaiha-legend" id="kaiha-legend"></div>
+      </div>
+      <div class="card mini-card">
+        <h4>これからの予定</h4>
+        <ul id="schedule"></ul>
+      </div>
+    </div>
+
+    <div class="home-q">
+      <h4>直近の一般質問ハイライト（6月定例会）</h4>
+      <div class="grid" id="home-highlights" style="margin-top:14px"></div>
+      <button class="jump-btn" onclick="go('questions')">すべての一般質問を見る →</button>
+    </div>
+
+    <div class="card voices-card" id="home-voices"></div>
+  </section>
+
+  <!-- ================= MEMBERS ================= -->
+  <section class="panel" id="members">
+    <div class="sec-head">
+      <div class="kicker">Members ・ 議員</div>
+      <h2>議員の顔ぶれ（17名）</h2>
+      <p>定数18・現員17（議席12は欠員）。カードをタップすると、その議員の一般質問がひらきます。</p>
+    </div>
+    <div class="filters">
+      <input type="search" id="m-search" placeholder="議員名・ふりがなで検索">
+      <button class="chip active" data-kaiha="all">すべて</button>
+      <button class="chip" data-kaiha="無所属">無所属</button>
+      <button class="chip" data-kaiha="公明党">公明党</button>
+    </div>
+    <div class="grid members-grid" id="members-grid"></div>
+  </section>
+
+  <!-- ================= QUESTIONS ================= -->
+  <section class="panel" id="questions">
+    <div class="sec-head">
+      <div class="kicker">General Questions ・ 一般質問</div>
+      <h2>市政を問う 一般質問</h2>
+      <p>一般質問は、議員が市の考えや取り組みを直接ただす場です。質問の要旨を、公式の議会中継システムや市議会だよりをもとにまとめました。</p>
+    </div>
+    <div class="filters">
+      <input type="search" id="q-search" placeholder="キーワードで検索（例：給食・図書館・防災）">
+      <button class="chip active" data-qfilter="all">すべての議員</button>
+    </div>
+    <div class="filters" id="tag-chips">
+      <span style="font-size:.78rem;font-weight:800;color:var(--muted)">テーマ：</span>
+      <button class="chip active" data-qtag="all">すべて</button>
+    </div>
+    <div id="questions-list"></div>
+  </section>
+
+  <!-- ================= BUDGET & BILLS ================= -->
+  <section class="panel" id="budget">
+    <div class="sec-head">
+      <div class="kicker">Budget ・ 予算</div>
+      <h2>市の予算を、やさしく</h2>
+      <p>令和8年度に朝倉市が「何にいくら使うか」。3月定例会で可決された新年度予算の主なものを、議会だより第80号からまとめました。</p>
+    </div>
+    <div class="card b-total" id="b-total"></div>
+    <div id="b-cats"></div>
+    <h3 style="font-family:var(--serif);color:var(--navy);font-size:1.2rem;margin:34px 0 4px">予算審査でのやりとり（抜粋）</h3>
+    <p style="font-size:.88rem;color:var(--ink-soft)">予算審査特別委員会（寺原裕明委員長）での質疑応答の一部です。</p>
+    <div id="b-qa"></div>
+    <div class="sec-head" style="margin-top:48px">
+      <div class="kicker">Results ・ 議決結果</div>
+      <h2>何が決まった？</h2>
+      <p>直近の定例会・臨時会に提案された主な議案と結果です。議員ごとの賛否は議会だより第80号（P6〜7）に掲載されています。</p>
+    </div>
+    <div id="bills"></div>
+  </section>
+
+  <!-- ================= LEARN ================= -->
+  <section class="panel" id="learn">
+    <div class="sec-head">
+      <div class="kicker">Guide ・ 議会のしくみ</div>
+      <h2>はじめての市議会</h2>
+      <p>「議会って何をするところ？」をやさしく解説します。</p>
+    </div>
+    <div class="grid learn-grid">
+      <div class="card learn-card"><div class="ic">🏛️</div><h3>市議会とは</h3>
+        <p>市民が選んだ議員（定数18人）が集まり、市の予算や条例（市のルール）を決め、市の仕事が正しく行われているかをチェックする場です。市長（執行部）とは別の立場で市政を監視します。</p></div>
+      <div class="card learn-card"><div class="ic">📅</div><h3>定例会・臨時会</h3>
+        <p>年4回（3月・6月・9月・12月ごろ）開かれる会議が「定例会」。必要に応じて開くのが「臨時会」です。3月定例会は新年度予算を審議する、いちばん大きな会議です。</p></div>
+      <div class="card learn-card"><div class="ic">🗣️</div><h3>一般質問</h3>
+        <p>議員が市政全般について、市の考えや方針をただす場。子育て・防災・道路・給食など、暮らしに直結するテーマが取り上げられます。だれが何を質問したかは、このサイトで見られます。</p></div>
+      <div class="card learn-card"><div class="ic">🗳️</div><h3>議決とは</h3>
+        <p>提案された議案（予算・条例など）を、議員の賛成・反対の投票で決めること。過半数で可決されます。賛否同数のときだけ議長が加わって決めます。</p></div>
+      <div class="card learn-card"><div class="ic">👀</div><h3>傍聴できます</h3>
+        <p>本会議や委員会は、だれでも会場で傍聴できます。近くで見られない人も、本会議の録画がインターネットで配信されています（下の「リンク・出典」から）。</p></div>
+      <div class="card learn-card"><div class="ic">🧑‍🤝‍🧑</div><h3>委員会</h3>
+        <p>専門的に審査するための小さな会議。朝倉市には「総務文教」「環境民生」「建設経済」の3つの常任委員会などがあります。各議員がいずれかに所属しています。</p></div>
+    </div>
+    <div class="card" style="padding:24px;margin-top:18px">
+      <h4 style="font-family:var(--serif);color:var(--navy);font-size:1.1rem;margin-bottom:14px">議案が決まるまでの流れ</h4>
+      <div class="flow">
+        <div class="step"><div class="no">STEP 1</div><h4>提案</h4><p>市長が予算や条例案を議会に提案します。</p></div>
+        <div class="step"><div class="no">STEP 2</div><h4>質疑・委員会審査</h4><p>議員が内容を質問し、委員会でくわしく審査。</p></div>
+        <div class="step"><div class="no">STEP 3</div><h4>一般質問</h4><p>市政全般について議員が方針をただします。</p></div>
+        <div class="step"><div class="no">STEP 4</div><h4>議決</h4><p>本会議で賛成・反対を投票し、可否を決定。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LINKS ================= -->
+  <section class="panel" id="links">
+    <div class="sec-head">
+      <div class="kicker">Sources ・ リンク・出典</div>
+      <h2>公式情報・出典</h2>
+      <p>このサイトの情報は、以下の朝倉市の公式ページをもとにしています。正確な最新情報は必ず公式でご確認ください。</p>
+    </div>
+    <div class="grid link-list" id="links-grid"></div>
+    <div class="notice">
+      <b>ご注意</b> — このサイトは朝倉市および朝倉市議会が運営する公式サイトではありません。有志が公開情報をわかりやすくまとめた<b>非公式</b>のポータルです。掲載内容には誤りが含まれる可能性があります。議決結果・発言の正確な内容は、公式の会議録・録画配信をご覧ください。<br>
+      データ最終更新日：<b id="updated"></b>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="up"><b style="color:var(--cosmos)">議会びより</b> ／ 朝倉市版（非公式）</div>
+    <p style="margin-top:6px">出典：<a href="https://www.city.asakura.lg.jp/www/genre/1000000000010/index.html" target="_blank" rel="noopener">朝倉市議会 公式ページ</a> ／ あさくら市議会だより・議会中継システムほか</p>
+    <p style="margin-top:6px;font-size:.75rem">市の議会をやさしくまとめる、市民のための非営利プロジェクトです。</p>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal">
+    <button class="close" onclick="closeModal()" aria-label="閉じる">✕</button>
+    <div class="mhd" id="modal-hd"></div>
+    <div class="mbody" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* ============ DATA（実データ：朝倉市公式サイト・議会中継システムより） ============ */
+const DATA = {
+  // ▼ シリーズ化：別の自治体版を作るときは、この site ブロックと下の各データを差し替えるだけ
+  site:{
+    series:"議会びより",
+    locality:"朝倉市",
+    region:"福岡県",
+    tagline:"市の議会が、よくわかる。"
+  },
+  meta:{
+    updated:"2026-07-07",
+    term:"定数18・現員17（議席12は欠員）",
+    teisu:18,
+    video:"https://asakura-city.stream.jfit.co.jp/"
+  },
+  kaiha:[
+    {name:"無所属", count:16, color:"#22315a"},
+    {name:"公明党", count:1, color:"#3f7d5b"},
+    {name:"欠員", count:1, color:"#c9c2b2"}
+  ],
+  members:[
+    {seat:18,name:"小島 清人",kana:"こじま きよと",role:"議長",kaiha:"無所属",wins:3,committees:["総務文教常任委員会"]},
+    {seat:17,name:"加藤 正二",kana:"かとう しょうじ",role:"副議長",kaiha:"無所属",wins:2,committees:["環境民生常任委員会"]},
+    {seat:1,name:"日野 泰信",kana:"ひの やすのぶ",role:"",kaiha:"無所属",wins:1,committees:["建設経済常任委員会 副委員長"]},
+    {seat:2,name:"石井 清治",kana:"いしい せいじ",role:"",kaiha:"無所属",wins:1,committees:["総務文教常任委員会 副委員長"]},
+    {seat:3,name:"飯田 早苗",kana:"いいだ さなえ",role:"",kaiha:"無所属",wins:1,committees:["環境民生常任委員会"]},
+    {seat:4,name:"渡辺 毅",kana:"わたなべ つよし",role:"",kaiha:"無所属",wins:2,committees:["環境民生常任委員会"]},
+    {seat:5,name:"仲山 寛",kana:"なかやま ゆたか",role:"",kaiha:"無所属",wins:2,committees:["総務文教常任委員会 委員長"]},
+    {seat:6,name:"徳永 秀俊",kana:"とくなが ひでとし",role:"",kaiha:"公明党",wins:2,committees:["総務文教常任委員会"]},
+    {seat:7,name:"北川 清文",kana:"きたがわ きよふみ",role:"",kaiha:"無所属",wins:2,committees:["環境民生常任委員会 委員長","議会運営委員会 副委員長"]},
+    {seat:8,name:"熊本 正博",kana:"くまもと まさひろ",role:"",kaiha:"無所属",wins:2,committees:["建設経済常任委員会 委員長"]},
+    {seat:9,name:"鹿毛 哲也",kana:"かげ てつや",role:"",kaiha:"無所属",wins:4,committees:["総務文教常任委員会"]},
+    {seat:10,name:"半田 雄三",kana:"はんだ ゆうぞう",role:"",kaiha:"無所属",wins:4,committees:["建設経済常任委員会"]},
+    {seat:11,name:"堀尾 俊浩",kana:"ほりお としひろ",role:"",kaiha:"無所属",wins:4,committees:["環境民生常任委員会 副委員長"]},
+    {seat:13,name:"浅尾 静二",kana:"あさお せいじ",role:"",kaiha:"無所属",wins:5,committees:["環境民生常任委員会","議会運営委員会 委員長"]},
+    {seat:14,name:"柴山 恭子",kana:"しばやま きょうこ",role:"",kaiha:"無所属",wins:5,committees:["建設経済常任委員会"]},
+    {seat:15,name:"大庭 きみ子",kana:"おおば きみこ",role:"",kaiha:"無所属",wins:6,committees:["総務文教常任委員会"]},
+    {seat:16,name:"実藤 輝夫",kana:"さねふじ てるお",role:"",kaiha:"無所属",wins:9,committees:["建設経済常任委員会"]}
+  ],
+  sessions:[
+    {id:"r8t3",name:"令和8年 第3回定例会（6月定例会）",term:"6月11日〜26日（16日間）",latest:true,pending:true,note:"6月11日開会・26日閉会。一般質問は6月16日〜18日の3日間で14名の議員が登壇し、市長の所信表明に関する質問が数多く取り上げられました。質問と答弁の詳しい要旨は、あさくら市議会だより（次号）の掲載後に追記します。"},
+    {id:"r8t2",name:"令和8年 第2回定例会（3月定例会）",term:"3月",note:"新年度予算などを審議。内容は公式の会議録・録画配信をご覧ください。"},
+    {id:"r8r1",name:"令和8年 第1回臨時会",term:"1月",note:"内容は公式の会議録・録画配信をご覧ください。"}
+  ],
+  schedule:[
+    {d:"次号",t:"あさくら市議会だより（6月定例会の詳報）発行後に答弁要旨を追記"},
+    {d:"9月",t:"9月定例会（日程は公式サイトで発表され次第更新）"},
+    {d:"随時",t:"本会議の録画は議会中継システムで公開中"}
+  ],
+  /* 令和8年6月定例会の一般質問（14名・議会中継システムの質問事項より。答弁の要旨は市議会だより次号の掲載後に追記） */
+  questions:[
+    {session:"r8t3",name:"浅尾 静二",kana:"あさお せいじ",seat:13,pending:true,tags:["行政・財政"],
+     themes:["市長所信表明について"],
+     summary:"質問事項 — 市長の所信表明について、政治姿勢と情報発信、役所改革、財政運営の考えを問う。"},
+    {session:"r8t3",name:"石井 清治",kana:"いしい せいじ",seat:2,pending:true,tags:["行政・財政","防災・安全","暮らし・地域"],
+     themes:["市長の「5つの挑戦」について","災害復旧事業について","地域環境整備事業について"],
+     summary:"質問事項 — 選挙公報に掲げられた「5つの挑戦」（若い力の流出停止、企業誘致、出前市長室、朝倉ブランド化など）の考えを問う。あわせて平成29年7月豪雨災害の復旧事業の状況と、地域環境整備事業の弾力的な運用を問う。"},
+    {session:"r8t3",name:"飯田 早苗",kana:"いいだ さなえ",seat:3,pending:true,tags:["行政・財政","防災・安全"],
+     themes:["新市長の公約・姿勢について","大規模災害への備えについて"],
+     summary:"質問事項 — 人口減少対策・若者流出対策・人口流入策・組織改革など、新市長の公約と姿勢を問う。また大規模災害への備えとして、避難所の環境、備蓄、代替水源、防災士の活用、防災訓練を問う。"},
+    {session:"r8t3",name:"堀尾 俊浩",kana:"ほりお としひろ",seat:11,pending:true,tags:["行政・財政","子育て・教育","防災・安全"],
+     themes:["市長の市政運営姿勢を問う","教育について","河川の強化について"],
+     summary:"質問事項 — 「5つの挑戦」や情報管理など、市長の市政運営姿勢を問う。教育では小規模校振興プロジェクトを、河川の強化では小石原川・野鳥川への対応を問う。"},
+    {session:"r8t3",name:"渡辺 毅",kana:"わたなべ つよし",seat:4,pending:true,tags:["行政・財政","健康・福祉","暮らし・地域"],
+     themes:["市長の所信表明について","高齢者の交通利用について"],
+     summary:"質問事項 — 「チャレンジする市役所」となるために、退職者数や市長のスケジュールなどを問う。また高齢者の交通利用について、運転免許の講習やコミュニティバスのあり方を問う。"},
+    {session:"r8t3",name:"柴山 恭子",kana:"しばやま きょうこ",seat:14,pending:true,tags:["行政・財政","防災・安全","暮らし・地域"],
+     themes:["市長に問う"],
+     summary:"質問事項 — 就任あいさつで掲げられた理念と所信表明、災害対策と豪雨対策、外資系企業によるマンション建設計画について、市長の考えを問う。"},
+    {session:"r8t3",name:"鹿毛 哲也",kana:"かげ てつや",seat:9,pending:true,tags:["農業・環境","防災・安全","行政・財政"],
+     themes:["旧堰撤去に伴う排水路・小石原川の災害対策","市長の公約について"],
+     summary:"質問事項 — 旧堰撤去に伴う農業用排水路と小石原川の災害対策を問う。市長の公約では、若い力の流出停止、企業誘致・起業支援、女性支援、情報公開の推進、朝倉ブランド化、空き家対策の考えを問う。"},
+    {session:"r8t3",name:"熊本 正博",kana:"くまもと まさひろ",seat:8,pending:true,tags:["防災・安全","行政・財政"],
+     themes:["治水利水と所信表明","豪雨災害復旧と河川整備","新庁舎の問題"],
+     summary:"質問事項 — 市長の治水利水に関する認識と所信表明を問う。豪雨災害復旧の認識、気候変動への対応、両筑平野用水と河川整備、さらに新庁舎の標識・駐車場・来客者対応・施工についても問う。"},
+    {session:"r8t3",name:"北川 清文",kana:"きたがわ きよふみ",seat:7,pending:true,tags:["暮らし・地域","子育て・教育","防災・安全"],
+     themes:["若者流出への対策","子育て・住宅支援と交通インフラ","災害復旧と自然環境保全"],
+     summary:"質問事項 — 若者流出への対策として、雇用創出・ブランド化・企業と学生のマッチングを問う。子育て・住宅支援、交通インフラ整備、若者のコミュニティづくり、災害復旧と自然環境の保全についても問う。"},
+    {session:"r8t3",name:"日野 泰信",kana:"ひの やすのぶ",seat:1,pending:true,tags:["子育て・教育","防災・安全","行政・財政"],
+     themes:["市長所信表明について"],
+     summary:"質問事項 — 市長の所信表明について、教育、文化事業の振興、豪雨災害復旧、起業支援の考えを問う。"},
+    {session:"r8t3",name:"大庭 きみ子",kana:"おおば きみこ",seat:15,pending:true,tags:["行政・財政","子育て・教育","健康・福祉"],
+     themes:["市長所信表明について","学校体育館の空調整備について"],
+     summary:"質問事項 — 所信表明のうち、女性支援、教育環境、子育てとの両立、情報公開、朝倉ブランド化、駅の整備について問う。また学校体育館の空調整備について問う。"},
+    {session:"r8t3",name:"半田 雄三",kana:"はんだ ゆうぞう",seat:10,pending:true,tags:["行政・財政","防災・安全","暮らし・地域"],
+     themes:["市長に問う"],
+     summary:"質問事項 — 選挙結果と就任後の所信表明、安心安全のまちづくり、インターチェンジの活用、出前市長室について、市長の考えを問う。"},
+    {session:"r8t3",name:"徳永 秀俊",kana:"とくなが ひでとし",seat:6,pending:true,tags:["行政・財政","子育て・教育","農業・環境"],
+     themes:["市長所信表明について"],
+     summary:"質問事項 — SNS・AI時代の選挙環境、若者流出対策、子育て支援、不登校対策、有機農業の推進、物価対策、市民派市政のあり方、4年後のビジョンなど、幅広く市長の考えを問う。"},
+    {session:"r8t3",name:"実藤 輝夫",kana:"さねふじ てるお",seat:16,pending:true,tags:["行政・財政"],
+     themes:["市長に問う"],
+     summary:"質問事項 — 市長選挙と朝倉市の将来、所信表明から見る課題と展望について、市長の考えを問う。"}
+  ],
+  links:[
+    {k:"OFFICIAL",title:"朝倉市議会 トップページ",desc:"議会の構成・日程・お知らせなど公式の入口。",url:"https://www.city.asakura.lg.jp/www/genre/1000000000010/index.html"},
+    {k:"MEMBERS",title:"議員名簿（公式）",desc:"議員・党派・当選回数・所属委員会の一次情報。",url:"https://www.city.asakura.lg.jp/site/gikai/12870.html"},
+    {k:"MINUTES",title:"会議録",desc:"各定例会・臨時会の会議録。",url:"https://www.city.asakura.lg.jp/site/gikai/list51-96.html"},
+    {k:"NEWSLETTER",title:"あさくら市議会だより",desc:"一般質問や議決結果をまとめた広報紙（最新号）。",url:"https://www.city.asakura.lg.jp/site/gikai/13538.html"},
+    {k:"VIDEO",title:"議会中継システム（録画・生中継）",desc:"本会議の映像。議員名・会議名・用語から検索できます。6月分の質問事項の出典。",url:"https://asakura-city.stream.jfit.co.jp/"},
+    {k:"PDF",title:"朝倉市議会議員名簿（PDF）",desc:"議席・氏名・所属委員会の一次資料（令和8年4月13日現在）。",url:"https://www.city.asakura.lg.jp/uploaded/attachment/9627.pdf"}
+  ],
+  budget:null,
+  bills:null,
+  voices:null
+};
+
+/* ============ helpers ============ */
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => { const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e; };
+const initial = n => n.replace(/\s/g,'').charAt(0);
+const memberBySeat = s => DATA.members.find(m=>m.seat===s);
+const qCountFor = name => DATA.questions.filter(q=>q.name===name).reduce((a,q)=>a+q.themes.length,0);
+
+/* ============ tabs ============ */
+function go(tab){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('section.panel').forEach(p=>p.classList.toggle('active',p.id===tab));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>go(b.dataset.tab));
+
+/* ============ HOME ============ */
+function renderHome(){
+  const s = DATA.sessions.find(x=>x.latest) || DATA.sessions[0];
+  $('#now-card').innerHTML =
+    `<span class="now-tag">最新の議会</span>
+     <h3>${s.name}</h3>
+     <div class="now-meta"><span>会期：<b>${s.term}</b></span></div>
+     <p style="margin-top:12px;color:var(--ink-soft);font-size:.93rem">${s.note}</p>`;
+
+  // kaiha bar
+  const total = DATA.kaiha.reduce((a,k)=>a+k.count,0);
+  $('#kaiha-bar').innerHTML = DATA.kaiha.map(k=>`<i style="width:${k.count/total*100}%;background:${k.color}"></i>`).join('');
+  $('#kaiha-legend').innerHTML = DATA.kaiha.map(k=>
+    `<div class="row"><span class="dot" style="background:${k.color}"></span>${k.name}<span class="n">${k.count}</span></div>`).join('');
+
+  // schedule
+  $('#schedule').innerHTML = DATA.schedule.map(s=>`<li><span class="d">${s.d}</span><span>${s.t}</span></li>`).join('');
+
+  // highlights: 最新会期の質問から3件
+  const latest = DATA.sessions.find(x=>x.latest);
+  $('#home-highlights').innerHTML = DATA.questions.filter(q=>q.session===latest.id).slice(0,3).map(q=>
+    `<div class="card q-card">
+      <div class="q-mem"><div class="q-av">${initial(q.name)}</div>
+        <div><div class="q-mname">${q.name}</div><div class="q-mkana">${q.kana}</div></div></div>
+      <div class="q-themes">${q.themes.map(t=>`<span class="q-theme">${t}</span>`).join('')}</div>
+    </div>`).join('');
+
+  // 市民の声
+  const v = DATA.voices;
+  if(v){
+    $('#home-voices').innerHTML =
+      `<h4>${v.title}</h4><div class="vd">${v.dates}</div>
+       <ul>${v.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+       <div class="vn">${v.note}</div>`;
+  } else { $('#home-voices').style.display='none'; }
+}
+
+/* ============ MEMBERS ============ */
+let mKaiha='all', mQuery='';
+function renderMembers(){
+  const grid = $('#members-grid'); grid.innerHTML='';
+  const list = DATA.members
+    .filter(m=>mKaiha==='all'||m.kaiha===mKaiha)
+    .filter(m=>!mQuery|| (m.name+m.kana).replace(/\s/g,'').includes(mQuery.replace(/\s/g,'')))
+    .sort((a,b)=>a.seat-b.seat);
+  if(!list.length){grid.innerHTML='<div class="q-empty">該当する議員がいません。</div>';return;}
+  list.forEach(m=>{
+    const qc = qCountFor(m.name);
+    const c = el('div','card m-card');
+    c.dataset.role=m.role;
+    c.innerHTML =
+      `<div class="m-top"><div class="avatar">${initial(m.name)}</div>
+        <div><div class="m-name">${m.name}</div><div class="m-kana">${m.kana}</div></div></div>
+       <div class="m-tags">
+         <span class="tag seat">議席 ${m.seat}</span>
+         ${m.role?`<span class="tag role">${m.role}</span>`:''}
+         <span class="tag kaiha">${m.kaiha}</span>
+         <span class="tag wins">当選${m.wins}回</span>
+       </div>
+       <div class="m-comm">${m.committees.join('／')}</div>
+       <div class="m-qcount">直近の一般質問：<b>${qc?qc+'テーマ':'なし'}</b>${qc?' ▸':''}</div>`;
+    c.onclick=()=>openMember(m);
+    grid.appendChild(c);
+  });
+}
+document.querySelectorAll('[data-kaiha]').forEach(ch=>ch.onclick=()=>{
+  document.querySelectorAll('[data-kaiha]').forEach(x=>x.classList.remove('active'));
+  ch.classList.add('active'); mKaiha=ch.dataset.kaiha; renderMembers();
+});
+$('#m-search').oninput=e=>{mQuery=e.target.value;renderMembers();};
+
+/* ============ QUESTIONS ============ */
+let qQuery='', qFilter='all', qTag='all';
+function renderQuestions(){
+  const box = $('#questions-list'); box.innerHTML='';
+  DATA.sessions.forEach(sess=>{
+    let qs = DATA.questions.filter(q=>q.session===sess.id);
+    if(!qs.length) return;
+    if(qFilter!=='all') qs=qs.filter(q=>q.name===qFilter);
+    if(qTag!=='all') qs=qs.filter(q=>(q.tags||[]).includes(qTag));
+    if(qQuery){
+      const kw=qQuery.trim();
+      qs=qs.filter(q=>(q.name+q.kana+q.themes.join('')+(q.summary||'')+(q.tags||[]).join('')).includes(kw));
+    }
+    if(!qs.length) return;
+    const wrap = el('div','q-session');
+    wrap.innerHTML=`<div class="q-session-head"><h3>${sess.name}</h3><span class="term">${sess.term}</span><span class="cnt">${qs.length}件の質問</span></div>`;
+    qs.forEach(q=>{
+      const links = [`<a class="q-link" href="${DATA.meta.video}" target="_blank" rel="noopener">▶ 録画で全文を見る</a>`].join('');
+      const c = el('div','card q-card');
+      c.innerHTML=
+        `<div class="q-mem"><div class="q-av">${initial(q.name)}</div>
+           <div><div class="q-mname">${q.name} <span style="font-size:.7rem;color:var(--muted);font-weight:400">議席${q.seat}</span></div>
+           <div class="q-mkana">${q.kana}</div></div></div>
+         <div class="q-themes">${q.themes.map(t=>`<span class="q-theme">${t}</span>`).join('')}</div>
+         ${q.pending?'<div class="pending-badge">📋 議会中継システムの質問事項より — 答弁の要旨はあさくら市議会だより（次号）の掲載後に追記予定</div>':''}
+         <div class="q-summary">${q.summary}</div>
+         <div class="tag-badges">${(q.tags||[]).map(t=>`<span class="tag-badge">${t}</span>`).join('')}</div>
+         <div class="q-links">${links}</div>`;
+      wrap.appendChild(c);
+    });
+    box.appendChild(wrap);
+  });
+  if(!box.children.length) box.innerHTML='<div class="card q-empty">該当する一般質問が見つかりませんでした。</div>';
+}
+$('#q-search').oninput=e=>{qQuery=e.target.value;renderQuestions();};
+function buildQFilters(){
+  const bar = $('[data-qfilter="all"]').parentElement;
+  const names=[...new Set(DATA.questions.map(q=>q.name))];
+  names.forEach(n=>{
+    const b=el('button','chip',n); b.dataset.qfilter=n; bar.appendChild(b);
+  });
+  bar.querySelectorAll('[data-qfilter]').forEach(ch=>ch.onclick=()=>{
+    bar.querySelectorAll('[data-qfilter]').forEach(x=>x.classList.remove('active'));
+    ch.classList.add('active'); qFilter=ch.dataset.qfilter; renderQuestions();
+  });
+  // テーマ（タグ）チップ
+  const tbar = $('#tag-chips');
+  const tags=[...new Set(DATA.questions.flatMap(q=>q.tags||[]))];
+  tags.forEach(t=>{
+    const b=el('button','chip',t); b.dataset.qtag=t; tbar.appendChild(b);
+  });
+  tbar.querySelectorAll('[data-qtag]').forEach(ch=>ch.onclick=()=>{
+    tbar.querySelectorAll('[data-qtag]').forEach(x=>x.classList.remove('active'));
+    ch.classList.add('active'); qTag=ch.dataset.qtag; renderQuestions();
+  });
+}
+
+/* ============ LINKS ============ */
+function renderLinks(){
+  $('#links-grid').innerHTML = DATA.links.map(l=>
+    `<a class="card link-card" href="${l.url}" target="_blank" rel="noopener">
+       <div class="lc-k">${l.k}</div><h3>${l.title}</h3><p>${l.desc}</p>
+       <span class="arrow">ひらく →</span></a>`).join('');
+  $('#updated').textContent = DATA.meta.updated;
+}
+
+/* ============ MODAL (member detail) ============ */
+function openMember(m){
+  $('#modal-hd').innerHTML =
+    `<div class="avatar" style="width:52px;height:52px">${initial(m.name)}</div>
+     <div><h3>${m.name}</h3><div class="m-sub">${m.kana} ／ 議席${m.seat} ／ ${m.role||'議員'} ／ ${m.kaiha} ／ 当選${m.wins}回</div></div>`;
+  let body = `<h5>所属委員会</h5><p style="font-size:.9rem;color:var(--ink-soft)">${m.committees.join('<br>')}</p>`;
+  let any=false;
+  DATA.sessions.forEach(sess=>{
+    const qs = DATA.questions.filter(q=>q.name===m.name && q.session===sess.id);
+    if(!qs.length) return;
+    any=true;
+    body += `<h5>${sess.name} の一般質問</h5>`;
+    qs.forEach(q=>{
+      body += `<div class="qblock">${q.pending?'<div class="pending-badge">📋 答弁はあさくら市議会だより（次号）で追記予定</div>':''}<div class="qt">${q.themes.join(' ／ ')}</div><div class="qs">${q.summary}</div></div>`;
+    });
+  });
+  if(any){
+    body += `<a class="q-link" href="${DATA.meta.video}" target="_blank" rel="noopener" style="margin-top:6px">▶ 録画配信で発言の全文を見る</a>`;
+  }else{
+    body += `<h5>一般質問</h5><p style="font-size:.9rem;color:var(--muted)">直近の定例会では一般質問の登壇はありませんでした。過去・今後の質問は公式の録画配信でご確認いただけます。</p>`;
+  }
+  $('#modal-body').innerHTML = body;
+  $('#modal-bg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){$('#modal-bg').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* ============ BUDGET & BILLS ============ */
+function renderBudget(){
+  if(!DATA.budget){
+    $('#budget').innerHTML = `<div class="sec-head"><div class="kicker">Budget ・ 予算</div><h2>予算・議決は準備中です</h2><p>朝倉市版の「予算・議決」コーナーは現在準備中です。議案・議決結果や予算の内容は、公式の会議録・あさくら市議会だよりでご確認ください。</p></div><a class="q-link" href="https://www.city.asakura.lg.jp/site/gikai/list51-96.html" target="_blank" rel="noopener">公式の会議録を見る →</a> <a class="q-link" href="https://www.city.asakura.lg.jp/site/gikai/13538.html" target="_blank" rel="noopener">市議会だより最新号 →</a>`;
+    return;
+  }
+  const b = DATA.budget;
+  $('#b-total').innerHTML =
+    `<span class="yr">${b.year} 一般会計 当初予算</span><span class="yen">${b.total}</span><p>${b.totalNote}</p>`;
+  const max = Math.max(...b.cats.flatMap(c=>c.items.map(i=>i.n)));
+  $('#b-cats').innerHTML = b.cats.map(c=>
+    `<div class="card b-cat"><h4>${c.name}</h4>${
+      c.items.map(i=>`<div class="bar-row"><span class="lbl">${i.l}</span><span class="track"><span class="fill" style="width:${Math.max(3, i.n/max*100)}%"></span></span><span class="amt">${i.a}</span></div>`).join('')
+    }</div>`).join('');
+  $('#b-qa').innerHTML = b.qa.map(x=>
+    `<div class="card qa-item"><div class="q">${x.q}</div><div class="a">${x.a}</div><span class="dept">（${x.dept}）</span></div>`).join('');
+  $('#bills').innerHTML = DATA.bills.map(bs=>{
+    const s = DATA.sessions.find(x=>x.id===bs.session);
+    return `<div class="bill-session"><h3>${s.name}</h3><div class="note">${bs.note}</div>${
+      bs.groups.map(g=>`<div class="card bill-group"><div class="bg-head"><span class="cat">${g.cat}</span><span class="res">${g.result}</span></div><ul>${g.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('')
+    }</div>`;
+  }).join('');
+}
+
+/* ============ site branding（シリーズ共通で site ブロックから反映） ============ */
+function applySite(){
+  const s = DATA.site;
+  document.title = `${s.locality} ${s.series} ｜ ${s.tagline}`;
+  const loc = document.querySelector('.brand-loc'); if(loc) loc.textContent = s.locality;
+  const ser = document.querySelector('.brand-series'); if(ser) ser.textContent = s.series;
+  const eb = document.querySelector('#hero-eyebrow'); if(eb) eb.textContent = `${s.region} ${s.locality}`;
+}
+
+/* ============ init ============ */
+applySite(); renderHome(); renderMembers(); buildQFilters(); renderQuestions(); renderBudget(); renderLinks();
+</script>
+</body>
+</html>
